@@ -40,13 +40,17 @@
                     </div>
                     <div class="panel-footer panel-primary">
                         <h3 class="panel-title">
-                            <a href="{{ url_for('new_game') }}">
-                                {% if game_state != 'off' %}
-                                    Join
-                                {% else %}
-                                    Be the First Player!
-                                {% endif %}
-                            </a>
+                            {% if g.user.is_authenticated %}
+                                <a href="{{ url_for('new_game') }}">
+                                    {% if game_state != 'off' %}
+                                        Join
+                                    {% else %}
+                                        Be the First Player!
+                                    {% endif %}
+                                </a>
+                            {% else %}
+                                <a href="{{ url_for('oauth_authorize', provider='facebook') }}">Login with Facebook</a>
+                            {% endif %}
                         </h3>
                     </div>
                 </div>
