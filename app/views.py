@@ -55,6 +55,7 @@ def oauth_callback(provider):
         db.session.add(user)
         db.session.commit()
     login_user(user, True)
+    flash('Successfully logged in.', 'success')
     return redirect(url_for('index'))
 
 @app.route('/logout')

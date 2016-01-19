@@ -43,16 +43,17 @@
       </div><!-- /.container-fluid -->
     </nav>
 
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        <ul>
-        {% for message in messages %}
-            <li>{{ message }} </li>
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">
+            {{ message }}
+            </div>
         {% endfor %}
-        </ul>
       {% endif %}
     {% endwith %}
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
 
     <script src="/static/js/jquery-2.2.0.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>

@@ -11,9 +11,7 @@
         });
     }
     </script>
-    {% for message in get_flashed_messages() %}
-        <p><b>Error</b>: {{ message }}</p>
-    {% endfor %}
+
     {% if current_user.is_authenticated %}
         <!-- <h2>Hi, {{ current_user.nickname }}!</h2> -->
         <!-- <div id="score">1</div>
