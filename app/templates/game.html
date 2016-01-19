@@ -1,0 +1,551 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" style="text-align:center">
+        <div class="panel panel-primary panel-square panel-no-border text-center">
+            <div class="panel-heading">
+            <h3 class="panel-title">Strike this Number in the table:</h3>
+            </div>
+            <div class="panel-body">
+            <h1 id="new-number" class="bolded tiles-number text-danger">Please wait...</h1>
+            </div><!-- /.panel-body -->
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Welcome
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tbody style="text-align:center">
+                        <tr>
+                            <td id="1:1" onclick="javascript:highlight(this.id);"></td>
+                            <td id="1:2" onclick="javascript:highlight(this.id);"></td>
+                            <td id="1:3" onclick="javascript:highlight(this.id);"></td>
+                            <td id="1:4" onclick="javascript:highlight(this.id);"></td>
+                            <td id="1:5" onclick="javascript:highlight(this.id);"></td>
+                        </tr>
+
+                        <tr>
+                            <td id="2:1" onclick="javascript:highlight(this.id);"></td>
+                            <td id="2:2" onclick="javascript:highlight(this.id);"></td>
+                            <td id="2:3" onclick="javascript:highlight(this.id);"></td>
+                            <td id="2:4" onclick="javascript:highlight(this.id);"></td>
+                            <td id="2:5" onclick="javascript:highlight(this.id);"></td>
+                        </tr>
+
+                        <tr>
+                            <td id="3:1" onclick="javascript:highlight(this.id);"></td>
+                            <td id="3:2" onclick="javascript:highlight(this.id);"></td>
+                            <td id="3:3" onclick="javascript:highlight(this.id);"></td>
+                            <td id="3:4" onclick="javascript:highlight(this.id);"></td>
+                            <td id="3:5" onclick="javascript:highlight(this.id);"></td>
+                        </tr>
+
+                        <tr>
+                            <td id="4:1" onclick="javascript:highlight(this.id);"></td>
+                            <td id="4:2" onclick="javascript:highlight(this.id);"></td>
+                            <td id="4:3" onclick="javascript:highlight(this.id);"></td>
+                            <td id="4:4" onclick="javascript:highlight(this.id);"></td>
+                            <td id="4:5" onclick="javascript:highlight(this.id);"></td>
+                        </tr>
+
+                        <tr>
+                            <td id="5:1" onclick="javascript:highlight(this.id);"></td>
+                            <td id="5:2" onclick="javascript:highlight(this.id);"></td>
+                            <td id="5:3" onclick="javascript:highlight(this.id);"></td>
+                            <td id="5:4" onclick="javascript:highlight(this.id);"></td>
+                            <td id="5:5" onclick="javascript:highlight(this.id);"></td>
+                        </tr>
+
+                        <tr>
+                            <td id="6" colspan="5">
+                                <button class="btn btn-primary" align="center" onclick="javascript:document.location.reload(1);">
+                                    Reload Table
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>    
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+<script language="JavaScript">
+
+
+function VER5_Check() {
+
+var b = navigator.appName;
+
+if (b == "Netscape") this.b = "NS";
+
+else if (b == "Microsoft Internet Explorer") this.b = "IE";
+
+this.v = parseInt(navigator.appVersion);
+
+this.IE5 = (navigator.userAgent.indexOf('MSIE 5') > 0);
+
+this.NS5 = (this.b >= "NS" && this.v >= 5);
+
+this.VER5 = (this.IE5 || this.NS5);
+
+}
+
+is = new VER5_Check();
+
+
+
+var jargonSelect = new Array();
+
+var c2=0;
+
+
+
+function highlight(myId) {
+
+  var myCell = document.getElementById(myId);
+
+  if(myCell.className == 'success')
+    return;
+
+  myCell.className = "success";
+  // myCell.style.backgroundColor = "\#00ffc0";
+
+  jargonSelect[c2]=myId;
+
+  if(jargonSelect.length>=5){
+
+    //alert("check to see if its a winner");
+
+
+
+    var row=new Array();
+
+    var row2=new Array();
+
+    var row3=new Array();
+
+    var row4=new Array();
+
+    var row5=new Array();
+
+    var rowCount=0;
+
+    var row2Count=0;
+
+    var row3Count=0;
+
+    var row4Count=0;
+
+    var row5Count=0;
+
+
+
+    var column=new Array();
+
+    var column2=new Array();
+
+    var column3=new Array();
+
+    var column4=new Array();
+
+    var column5=new Array();
+
+    var colCount=0;
+
+    var col2Count=0;
+
+    var col3Count=0;
+
+    var col4Count=0;
+
+    var col5Count=0;
+
+
+
+    var diagonal=new Array();
+
+    var diagonal2=new Array();
+
+    var diagCount=0;
+
+    diag2Count=0;
+
+    for(i=0;i<jargonSelect.length;++i){
+
+        //Checking for diagonal match
+
+        if(jargonSelect[i]=="5:1" || jargonSelect[i]=="4:2" || jargonSelect[i]=="3:3" || jargonSelect[i]=="2:4" || jargonSelect[i]=="1:5"){
+
+            diagonal[diagCount]=jargonSelect[i];
+
+            diagCount++;
+
+            if(diagonal.length==5){
+
+                game_over(0, 0, 3);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="1:1" || jargonSelect[i]=="2:2" || jargonSelect[i]=="3:3" || jargonSelect[i]=="4:4" || jargonSelect[i]=="5:5"){
+
+            diagonal2[diag2Count]=jargonSelect[i];
+
+            diag2Count++;
+
+            if(diagonal2.length==5){
+
+                game_over(0, 0, 4);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+
+
+
+
+        //Checking for column match
+
+        if(jargonSelect[i]=="1:1" || jargonSelect[i]=="2:1" || jargonSelect[i]=="3:1" || jargonSelect[i]=="4:1" || jargonSelect[i]=="5:1"){
+
+            column[colCount]=jargonSelect[i];
+
+            colCount++;
+
+            if(column.length==5){
+
+                game_over(1, 1, 1);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="1:2" || jargonSelect[i]=="2:2" || jargonSelect[i]=="3:2" || jargonSelect[i]=="4:2" || jargonSelect[i]=="5:2"){
+
+            column2[col2Count]=jargonSelect[i];
+
+            col2Count++;
+
+            if(column2.length==5){
+
+                game_over(1, 2, 1);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="1:3" || jargonSelect[i]=="2:3" || jargonSelect[i]=="3:3" || jargonSelect[i]=="4:3" || jargonSelect[i]=="5:3"){
+
+            column3[col3Count]=jargonSelect[i];
+
+            col3Count++;
+
+            if(column3.length==5){
+
+                game_over(1, 3, 1);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="1:4" || jargonSelect[i]=="2:4" || jargonSelect[i]=="3:4" || jargonSelect[i]=="4:4" || jargonSelect[i]=="5:4"){
+
+            column4[col4Count]=jargonSelect[i];
+
+            col4Count++;
+
+            if(column4.length==5){
+
+                game_over(1, 4, 1);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="1:5" || jargonSelect[i]=="2:5" || jargonSelect[i]=="3:5" || jargonSelect[i]=="4:5" || jargonSelect[i]=="5:5"){
+
+            column5[col5Count]=jargonSelect[i];
+
+            col5Count++;
+
+            if(column5.length==5){
+
+                game_over(1, 5, 1);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+
+
+
+
+        //Checking for row match
+
+        if(jargonSelect[i]=="1:1" || jargonSelect[i]=="1:2" || jargonSelect[i]=="1:3" || jargonSelect[i]=="1:4" || jargonSelect[i]=="1:5"){
+
+            row[rowCount]=jargonSelect[i];
+
+            rowCount++;
+
+            if(row.length==5){
+
+                game_over(1, 1, 2);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="2:1" || jargonSelect[i]=="2:2" || jargonSelect[i]=="2:3" || jargonSelect[i]=="2:4" || jargonSelect[i]=="2:5"){
+
+            row2[row2Count]=jargonSelect[i];
+
+            row2Count++;
+
+            if(row2.length==5){
+
+                game_over(2, 1, 2);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="3:1" || jargonSelect[i]=="3:2" || jargonSelect[i]=="3:3" || jargonSelect[i]=="3:4" || jargonSelect[i]=="3:5"){
+
+            row3[row3Count]=jargonSelect[i];
+
+            row3Count++;
+
+            if(row3.length==5){
+
+                game_over(3, 1, 2);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="4:1" || jargonSelect[i]=="4:2" || jargonSelect[i]=="4:3" || jargonSelect[i]=="4:4" || jargonSelect[i]=="4:5"){
+
+            row4[row4Count]=jargonSelect[i];
+
+            row4Count++;
+
+            if(row4.length==5){
+
+                game_over(4, 1, 2);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+        if(jargonSelect[i]=="5:1" || jargonSelect[i]=="5:2" || jargonSelect[i]=="5:3" || jargonSelect[i]=="5:4" || jargonSelect[i]=="5:5"){
+
+            row5[row5Count]=jargonSelect[i];
+
+            row5Count++;
+
+            if(row5.length==5){
+
+                game_over(5, 1, 2);
+
+                // document.location.reload(1);
+
+            }
+
+        }
+
+
+
+    }
+
+  }
+
+  c2++;
+
+}
+
+
+
+var _id;
+
+var _ff = 0;
+
+var _rawId = null;
+
+var _pages = 0;
+
+var _chgFlag = null;
+
+_cellZero = null;
+
+var jargon = {{ array | safe }}
+
+
+
+var _tableData = new Array();
+
+
+Pusher.log = function(message) {
+  if (window.console && window.console.log) {
+    window.console.log(message);
+  }
+};
+
+var pusher = new Pusher('6728e7a78ff504f3b8b0', {
+  encrypted: true
+});
+
+var channel = pusher.subscribe('test_channel');
+channel.bind('event', function(data) {
+  $('#new-number').html(data['message'])
+});
+channel.bind('game_over', function(data) {
+  announce_winner(data['winner']);
+});
+
+
+function randArray() {
+
+  var count = 0;
+
+  while (jargon.length != 0) {
+
+     var f = Math.round(Math.random() * (jargon.length - 1));
+
+     _tableData[count]=jargon[f];
+
+     jargon[f] = jargon[jargon.length - 1];
+
+     jargon.length -= 1;
+
+     count++;
+
+  }
+
+}
+
+function game_over(i, j, type) {
+    var answer = []
+    if(type == 1) {
+        while(i <= 5) {
+            var cell = document.getElementById(i.toString() + ':' + j.toString());
+            answer.push(cell.innerHTML);
+            i += 1;
+        }
+    } else if(type == 2) {
+        while(j <= 5) {
+            var cell = document.getElementById(i.toString() + ':' + j.toString());
+            answer.push(cell.innerHTML);
+            j += 1;
+        }
+    } else if(type == 3) {
+        i = 5
+        j = 1
+        while(j <= 5) {
+            var cell = document.getElementById(i.toString() + ':' + j.toString());
+            answer.push(cell.innerHTML);
+            j += 1;
+            i -= 1;
+        }
+    } else if(type == 4) {
+        i = 1
+        j = 1
+        while(i <= 5) {
+            var cell = document.getElementById(i.toString() + ':' + j.toString());
+            answer.push(cell.innerHTML);
+            i += 1;
+            j += 1;
+        }
+    }
+    verify_win(answer);
+}
+
+function verify_win(data) {
+    $.post('/game/over', {
+        data: JSON.stringify(data, null, '\t'),
+        contentType: 'application/json;charset=UTF-8'
+    }).done(function(response) {
+        if(response['message'] == 'You tried to cheat!') {
+            alert(response['message']);
+            window.location.href = "{{ url_for('play_game') }}";
+        }
+    }).fail(function() {
+        console.log("Error: Could not contact server.");
+    });
+}
+
+function announce_winner(winner) {
+    alert(winner + ' won the match!');
+    window.location.href = "{{ url_for('index') }}";
+}
+
+/*Called on page load*/
+
+function loadJargon() {
+    randArray();
+
+    count=0;
+
+    for(i = 1; i < 6; ++i) {
+
+        for(j = 1; j < 6; ++j) {
+
+            cellId=i+":"+j;
+
+            cell=document.getElementById(cellId);
+
+            cell.appendChild(document.createTextNode(_tableData[count]));
+
+            count++;
+
+        }
+
+    }
+
+}
+
+loadJargon();
+
+
+
+
+//  End -->
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4" style="text-align:center">
+    <div class="panel panel-primary panel-square panel-no-border text-center">
+      <div class="panel-heading">
+      <h3 class="panel-title">Time Remaining before new Game</h3>
+      </div>
+      <div class="panel-body">
+        <h1 id="countdown" class="bolded tiles-number text-danger">{{ secs_remaining }}</h1>
+        <p class="text-muted"><small><strong>seconds</strong></small></p>
+      </div>
+      <div class="panel-footer panel-primary">
+        <h3 class="panel-title">Invite your friends to play</h3>
+      </div>
+    </div>
+  </div>
+	<div class="col-md-4"></div>
+</div>
+
+<script type="text/javascript">
+  var seconds;
+  var temp;
+ 
+  function countdown() {
+    seconds = document.getElementById('countdown').innerHTML;
+    seconds = parseInt(seconds, 10);
+ 
+    if (seconds == 1) {
+      temp = document.getElementById('countdown');
+      temp.innerHTML = "all done, bye bye";
+      window.location.href = "{{ url_for('new_game') }}";
+      return;
+    }
+ 
+    seconds--;
+    temp = document.getElementById('countdown');
+    temp.innerHTML = seconds;
+    timeoutMyOswego = setTimeout(countdown, 1000);
+  }
+ 
+  countdown();
+</script>
+{% endblock %}

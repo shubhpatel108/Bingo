@@ -1,0 +1,61 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - microblog</title>
+    {% else %}
+    <title>Welcome to microblog</title>
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url_for('index')}}">Bingo!</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if not g.user.is_authenticated %}
+              <li>
+                <a href="{{ url_for('oauth_authorize', provider='facebook') }}">Login with Facebook</a>
+              </li>
+            {% else %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ current_user.nickname }} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ url_for('user', nickname=current_user.nickname) }}">My Profile</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+            </li>
+            {% endif %}
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+
+    <script src="/static/js/jquery-2.2.0.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-2" style="text-align:center">
+        <div class="panel panel-primary panel-square panel-no-border text-center">
+            <div class="panel-heading">
+            <h3 class="panel-title">{{ user.nickname }}'s Wins</h3>
+            </div>
+            <div class="panel-body">
+            <h1 id="new-number" class="bolded tiles-number text-danger">{{ user.wins }}</h1>
+        	<p class="text-muted"><small><strong>Game(s)</strong></small></p>
+            </div><!-- /.panel-body -->
+        </div>
+    </div>
+    <div class="col-md-2" style="text-align:center">
+        <div class="panel panel-primary panel-square panel-no-border text-center">
+            <div class="panel-heading">
+            <h3 class="panel-title">Total games</h3>
+            </div>
+            <div class="panel-body">
+            <h1 id="new-number" class="bolded tiles-number text-danger">{{ user.played }}</h1>
+        	<p class="text-muted"><small><strong>Game(s)</strong></small></p>
+            </div><!-- /.panel-body -->
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+	</div>
+
+{% endblock %}

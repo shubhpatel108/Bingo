@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+    <script>
+    function get_score() {
+        scorebox = '#score'
+        $.post('/ajax', {
+        }).done(function(response) {
+            $(scorebox).text(response['score'])
+        }).fail(function() {
+            $(scorebox).text("Error: Could not contact server.");
+        });
+    }
+    </script>
+    {% for message in get_flashed_messages() %}
+        <p><b>Error</b>: {{ message }}</p>
+    {% endfor %}
+    {% if current_user.is_authenticated %}
+        <!-- <h2>Hi, {{ current_user.nickname }}!</h2> -->
+        <!-- <div id="score">1</div>
+        <a href="javascript:get_score();">New Score</a> -->
+        <!-- <p><a href="{{ url_for('logout') }}">Logout</a></p> -->
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="panel panel-primary panel-square panel-no-border text-center">
+                    <div class="panel-heading">
+                        {% if game_state != 'off' %}
+                            <h3 class="panel-title">On Going Game:</h3>
+                        {% else %}
+                            <h3 class="panel-title">Game hasn't started yet</h3>
+                        {% endif %}
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group info">
+                            {% for nick in players %}
+                                <a target="_blank" href="{{ url_for('user', nickname=nick)}}" class="list-group-item">{{ nick }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="panel-footer panel-primary">
+                        <h3 class="panel-title">
+                            <a href="{{ url_for('new_game') }}">
+                                {% if game_state != 'off' %}
+                                    Join
+                                {% else %}
+                                    Be the First Player!
+                                {% endif %}
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="col-md-4"></div>    
+        </div>
+        
+
+    {% else %}
+        <h2>Sign in to Play!</h2>
+        <p><a href="{{ url_for('oauth_authorize', provider='facebook') }}">Login with Facebook</a></p>
+    {% endif %}
+{% endblock %}

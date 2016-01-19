@@ -1,0 +1,8 @@
+*.pyc
+*.pyo
+app.db
+search.db
+flask
+*.mo
+.DS_Store
+.DS_Store?
