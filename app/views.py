@@ -120,11 +120,13 @@ def pusher_test():
         time.sleep(3)
 
     with app.app_context():
+        if app.game_state != 'off':
+            client = pusher.client
+            client.trigger('test_channel', 'game_over', {
+                'winner': 'No-one',
+                })
         reset_game()
-        client = pusher.client
-        client.trigger('test_channel', 'game_over', {
-            'winner': 'No-one',
-            })
+
 
 @app.route('/game')
 @login_required
@@ -180,7 +182,7 @@ def game_over():
 
     for num in answers:
         if int(num) not in app.announced_nums:
-            return jsonify({ 
+            return jsonify({
                     'message': 'You tried to cheat!' })
 
     winner = current_user
